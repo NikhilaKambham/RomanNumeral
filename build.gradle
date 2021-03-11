@@ -16,11 +16,19 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'io.micrometer:micrometer-registry-prometheus'
+	implementation 'org.testng:testng:7.1.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// https://mvnrepository.com/artifact/com.fasterxml/jackson-module-json-org
+
+	// json parsing
 	implementation group: 'com.fasterxml', name: 'jackson-module-json-org', version: '0.9.1'
 
+	// logging
 	compile 'org.slf4j:log4j-over-slf4j'
+
+	// test dependencies
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
 }
 
 test {
