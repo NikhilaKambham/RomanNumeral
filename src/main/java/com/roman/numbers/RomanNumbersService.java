@@ -2,10 +2,15 @@ package com.roman.numbers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.base.Stopwatch;
+import io.micrometer.core.instrument.Metrics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Service Class that calculates the roman equivalent of a given Integer
@@ -23,7 +28,6 @@ public class RomanNumbersService {
      * @return either JSON or String
      */
     public Object getRomanNumber(Integer number) {
-
         if (number == null) {
             log.error("Null value provided for number " + number);
             return "null not allowed for this method";
@@ -34,6 +38,7 @@ public class RomanNumbersService {
             return "Input not in the required range. Please provide Integer in the range of 1 and 3999";
         }
 
+        Stopwatch stopwatch = Stopwatch.createStarted();
         List<String> list = new ArrayList<>();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -65,6 +70,11 @@ public class RomanNumbersService {
         Collections.reverse(list);
         String result = String.join("", list);
         rootNode.put("output", result);
+        log.info("Request completed. Returned " + result + " as result for " + rootNode.get("input") + " as input");
+
+        Metrics.timer("romannumeral_latency", "origin", "roman_numbers_service")
+                .record(Duration.ofNanos(stopwatch.stop().elapsed(TimeUnit.NANOSECONDS)));
+
         return  rootNode;
     }
 }

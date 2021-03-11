@@ -2,10 +2,12 @@ package com.roman.numbers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 /**
  * Rest Controller to get roman number equivalent of a given Integer.
@@ -27,9 +29,9 @@ public class RomanNumbersController {
     }
 
     @RequestMapping(value = "/romannumeral", method = RequestMethod.GET)
-    public Object getRomanNumber(@RequestParam(value="query") Integer number) {
+    public ResponseEntity<Object> getRomanNumber(@RequestParam(value="query") Integer number) {
         log.info("Processing request to convert integer to roman number " + number);
-        return romanNumbersService.getRomanNumber(number);
+        return  ResponseEntity.accepted().body(romanNumbersService.getRomanNumber(number));
     }
 
 }

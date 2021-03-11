@@ -1,8 +1,13 @@
 package com.roman.numbers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 public class Utils {
+
+    static Logger log = LoggerFactory.getLogger(Utils.class);
 
     private static final Map<Integer, String> romanMap = Map.of(1, "I",
             5, "V", 10, "X", 50, "L", 100, "C", 500, "D", 1000, "M");
@@ -16,6 +21,7 @@ public class Utils {
      * @return String equivalent of closest roman value
      */
     public static String getRomanNumberValueSubtractive(Integer number) {
+        log.info("Calculating subtractive roman number value for " + number);
         StringBuilder builder = new StringBuilder();
 
         // example: 9 -> IX
@@ -44,6 +50,7 @@ public class Utils {
      * @return Roman Equivalent of additive value
      */
     public static String getAdditiveValue(Integer number) {
+        log.info("Calculating additive roman number value for " + number);
         StringBuilder builder = new StringBuilder();
         while (number > 0) {
             if (number - 1000 >= 0) {
