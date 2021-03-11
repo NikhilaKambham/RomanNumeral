@@ -38,6 +38,7 @@ public class RomanNumbersService {
             return "Input not in the required range. Please provide Integer in the range of 1 and 3999";
         }
 
+        // starting the stop watch for prometheus timer
         Stopwatch stopwatch = Stopwatch.createStarted();
         List<String> list = new ArrayList<>();
 
@@ -72,6 +73,7 @@ public class RomanNumbersService {
         rootNode.put("output", result);
         log.info("Request completed. Returned " + result + " as result for " + rootNode.get("input") + " as input");
 
+        // prometheus timer to calculate the number nanoseconds it takes to calculate the roman number
         Metrics.timer("romannumeral_latency", "origin", "roman_numbers_service")
                 .record(Duration.ofNanos(stopwatch.stop().elapsed(TimeUnit.NANOSECONDS)));
 
