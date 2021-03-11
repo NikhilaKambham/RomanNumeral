@@ -66,8 +66,30 @@ romannumeral_latency_seconds_sum{origin="roman_numbers_controller",} 0.012854643
 
 ### Engineering and Test Methodology 
 
+#### Logic
 
+Given a number, take each digit starting from units place
+Check if the digit can be a corresponding subtractive roman number, 
+else get the corresponding additive roman number value and add it to the list.
 
+Reverse the list and print the corresponding roman number.
+
+RomanNumbersService class takes care of getting the roman value for each digit.
+
+Utils Class has two methods: one for getting additive roman value 
+and one for getting subtractive roman value.
+
+Example:
+```
+9 -> 9 + 1 is a 10 -> which gives the subtractive value IX.
+11 -> No subtractive value available -> so additive value is XI
+
+3999 -> MMMCMXCIX
+Subtractive value for 9 -> IX
+Subtractive value for 99 -> XC
+Subtractive value for 999 -> CM
+Additive value for 3000 -> MMM
+```
 
 ### Dependencies
 
